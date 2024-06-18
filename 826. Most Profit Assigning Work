@@ -1,0 +1,112 @@
+//Daily : 19th June 2024
+class Solution {
+    public int maxProfitAssignment(int[] difficulty, int[] profit, int[] worker) {
+
+    //Find Max from Array 
+    int maxWorker = Arrays.stream(worker).max().getAsInt() ;
+
+    //Create Job Array (later it will store the max value from its earlier work if any)
+    int job_maximing[] = new int[maxWorker + 1 ]  ;  // why 1 ? because we you to consider last work
+                                                    // 7 worker ==> 0 |1 2 3 4 5 6 7|
+
+    //Fill  the job_maximing array  : First with  thier Profite for respective Difficulty 
+        for(int i = 0; i <difficulty.length ; i++) //Why till Max Worker ?  Because we will ignore other Profite and  Difficulty which more then worker abilty
+        {
+            if(difficulty[i]<= maxWorker)  //ignore other Profite and  Difficulty which more then worker abilty
+            {
+               job_maximing[difficulty[i]] = Math.max(job_maximing[difficulty[i]]  , profit[i] );
+            // Job_maximing[difficulty[i]] ==> Initally it will be zero;
+            }
+        }
+
+
+      
+
+       // update the nieghboruing Array with max profit
+        for(int i = 1; i <= maxWorker ; i++)  // started from 1 . Zero work is no profite and Also [i] & [i -1] will work properly 
+            {
+            job_maximing[i]  = Math.max(job_maximing[i]  ,job_maximing[i-1] );
+            }
+
+
+            
+
+        int totalProfit = 0 ;
+        for(int currWorker: worker)  // Fetching all worker and checking for Its profite from job_maximing[i]
+        {
+            totalProfit =  totalProfit + job_maximing[currWorker] ;
+            
+        }
+
+    
+  return  totalProfit ; 
+
+
+
+        
+    }
+}
+
+/*Algo
+1. Find Max from Array 
+2. Create Job Array (later it will store the max value from its earlier work if any)
+3. Fill  the job_maximing array  : First with  thier Profite for respective Difficulty 
+4. update the nieghboruing Array with max profit
+5. Check for Total Profite by  Fetching all worker and checking for Its profite from job_maximing[i]
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
